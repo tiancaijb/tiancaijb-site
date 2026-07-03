@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
 import { getLangOrFallback } from "@/lib/lang";
 import { renderMarkdown, extractWikiLinks } from "@/lib/markdown";
+import { loadNotes } from "@/lib/content-loader";
 import type { Lang } from "@/lib/i18n";
 import type { Metadata } from "next";
 
@@ -11,12 +12,7 @@ interface Props {
 }
 
 async function getNotes(lang: Lang) {
-  const map: Record<string, () => Promise<any[]>> = {
-    zh: () => import("@/content/zh/notes").then((m) => m.notes),
-    en: () => import("@/content/en/notes").then((m) => m.notes),
-    ja: () => import("@/content/ja/notes").then((m) => m.notes),
-  };
-  return (map[lang] ?? map.zh)();
+  return loadNotes(lang);
 }
 
 export async function generateStaticParams() {

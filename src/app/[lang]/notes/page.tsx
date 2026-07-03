@@ -8,13 +8,10 @@ interface Props {
   params: Promise<{ lang: string }>;
 }
 
+import { loadNotes } from "@/lib/content-loader";
+
 async function getNotes(lang: Lang) {
-  const map: Record<string, () => Promise<any[]>> = {
-    zh: () => import("@/content/zh/notes").then((m) => m.notes),
-    en: () => import("@/content/en/notes").then((m) => m.notes),
-    ja: () => import("@/content/ja/notes").then((m) => m.notes),
-  };
-  return (map[lang] ?? map.zh)();
+  return loadNotes(lang);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

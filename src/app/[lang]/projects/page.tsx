@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { getLangOrFallback } from "@/lib/lang";
+import { loadProjects } from "@/lib/content-loader";
 import type { Lang } from "@/lib/i18n";
 import type { Metadata } from "next";
 
@@ -9,12 +10,7 @@ interface Props {
 }
 
 async function getProjects(lang: Lang) {
-  const map: Record<string, () => Promise<any[]>> = {
-    zh: () => import("@/content/zh/projects").then((m) => m.projects),
-    en: () => import("@/content/en/projects").then((m) => m.projects),
-    ja: () => import("@/content/ja/projects").then((m) => m.projects),
-  };
-  return (map[lang] ?? map.zh)();
+  return loadProjects(lang);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

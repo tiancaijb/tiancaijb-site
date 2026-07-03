@@ -1,23 +1,14 @@
 import Link from "next/link";
 import { getDictionary, type Lang } from "@/lib/i18n";
 import { getLangOrFallback } from "@/lib/lang";
+import { loadNotes, loadProjects } from "@/lib/content-loader";
 
 function getNotes(lang: Lang) {
-  const map: Record<string, any> = {
-    zh: () => import("@/content/zh/notes").then((m) => m.notes),
-    en: () => import("@/content/en/notes").then((m) => m.notes),
-    ja: () => import("@/content/ja/notes").then((m) => m.notes),
-  };
-  return (map[lang] ?? map.zh)();
+  return Promise.resolve(loadNotes(lang));
 }
 
 function getProjects(lang: Lang) {
-  const map: Record<string, any> = {
-    zh: () => import("@/content/zh/projects").then((m) => m.projects),
-    en: () => import("@/content/en/projects").then((m) => m.projects),
-    ja: () => import("@/content/ja/projects").then((m) => m.projects),
-  };
-  return (map[lang] ?? map.zh)();
+  return Promise.resolve(loadProjects(lang));
 }
 
 export default async function GardenHome({

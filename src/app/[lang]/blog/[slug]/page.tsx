@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDictionary } from "@/lib/i18n";
 import { getLangOrFallback } from "@/lib/lang";
 import { renderMarkdown } from "@/lib/markdown";
+import { loadBlogPosts } from "@/lib/content-loader";
 import type { Lang } from "@/lib/i18n";
 import type { Metadata } from "next";
 
@@ -11,12 +12,7 @@ interface Props {
 }
 
 async function getBlogPosts(lang: Lang) {
-  const map: Record<string, () => Promise<any[]>> = {
-    zh: () => import("@/content/zh/blog").then((m) => m.blogPosts),
-    en: () => import("@/content/en/blog").then((m) => m.blogPosts),
-    ja: () => import("@/content/ja/blog").then((m) => m.blogPosts),
-  };
-  return (map[lang] ?? map.zh)();
+  return loadBlogPosts(lang);
 }
 
 export async function generateStaticParams() {
