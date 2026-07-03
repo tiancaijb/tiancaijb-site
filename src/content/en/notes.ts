@@ -235,49 +235,61 @@ This follows the [[knowledge-management-ai|AI-era knowledge management]] philoso
   },
   {
     slug: "emacs-timeline",
-    title: "Emacs Timeline System",
+    title: "Emacs Timeline System (timeline-html.el)",
     date: "2026-07-04",
-    excerpt: "Visually track time in Emacs without breaking flow.",
+    excerpt: "Generate a visual HTML timeline from org-clock CLOCK records.",
     tags: ["Emacs", "time management", "tools"],
     content: `
-## Why a timeline
+## timeline-html.el
 
-Pomodoro is too rigid for me. I don't want 25-minute interruptions. I want:
+A Doom Emacs module I wrote that reads org-clock records and generates a visual HTML timeline.
 
-- Mark the time when I start something
-- Auto-record duration when I switch tasks
-- Look back and see where my time went
+## Data source: org-clock
 
-## The idea
+Whenever I work on something in Emacs, I clock in/out using org-mode:
 
-A simple timeline buffer in Emacs:
-
-\`\`\`
-09:00 ───── Start coding
-09:45    ├ Research (15m)
-10:30 ───── Sobriety check-in
-10:35 ───── Writing notes
-12:00 ───── Lunch
+\`\`\`org
+* TODO Write code [#A]
+  CLOCK: [2026-07-04 Sat 09:00]--[2026-07-04 Sat 10:30] => 1:30
 \`\`\`
 
-Each line = a timestamp + event. Indentation shows duration.
+\`C-c C-x C-i\` to start, \`C-c C-x C-o\` to stop. Emacs tracks duration automatically.
 
-## Why Emacs
+## One-key HTML timeline
 
-- No window switching — hit a key in Emacs and you're done
-- Links to [[my-gtd-system|org-agenda]] — auto-timestamp when TODO is done
-- Links to [[emacs-reminder-systems|timer-reminder]] — log when reminder fires
-- Data is plain org text, easily processable
+Run \`M-x tlh-show\` (bound to \`SPC t h\`), it:
 
-## Usage
+1. Scans all \`~/org/*.org\` files
+2. Extracts today's CLOCK records
+3. Parses heading hierarchy (cleans TODO/DONE, priorities, tags)
+4. Merges adjacent same-task segments
+5. Color-codes by task name keyword matching
+6. Generates a dark-theme HTML timeline (6AM-11PM)
+7. Opens in Windows browser via explorer.exe
 
-\`\`\`elisp
-;; Record a point in time
-M-x timeline/record-at-point
+### Visual output
 
-;; View today's timeline
-M-x timeline/show-today
-\`\`\`
+Dark background, 6AM-11PM time scale on the left, CLOCK blocks positioned proportionally. Each block is color-coded by task type — you can tell at a glance where your time went.
+
+### Color rules
+
+| Color | Matches |
+|-------|---------|
+| 🔴 Red | Code |
+| 🟠 Orange | Eating |
+| 🟡 Yellow | Audiobooks |
+| 🟢 Green | Learning |
+| 🔵 Blue | Anime |
+| 🟣 Purple | Gaming |
+| 🩷 Pink | Porn |
+| 🩵 Cyan | Sleep, Rest |
+
+## Why this approach
+
+- **No flow interruption** — start/stop clock is two key chords, never leave Emacs
+- **Data is automatic** — time tracking is a byproduct of org-clock, no manual entry
+- **Visualization** — HTML is far more intuitive than org text
+- **Tied to org-agenda** — TODOs and CLOCKs live in the same system
 
 The timeline isn't about precision to the second. It's about answering "what did I do today".
 `,
