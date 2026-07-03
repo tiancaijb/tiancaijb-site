@@ -50,7 +50,7 @@ Obsidian 的 \`setInterval\` 在笔记切换时会暂停。提醒逻辑要从 \`
     date: "2026-07-04",
     excerpt:
       "一条视频启发了我。用全免费工具从零到一上线完整应用的完整方案。",
-    tags: ["Indie Dev", "Tooling"],
+    tags: ["Indie Dev", "工具"],
     content: `
 ## 启发
 
@@ -58,16 +58,16 @@ Obsidian 的 \`setInterval\` 在笔记切换时会暂停。提醒逻辑要从 \`
 
 ## 全套免费方案
 
-| 环节 | 工具 | 费用 |
-|------|------|------|
-| 框架 | Next.js | 免费 |
-| 托管 | GitHub | 免费 |
-| 部署 | Vercel | 免费 |
-| 数据库 | Neon / Supabase | 免费 (500MB) |
-| 域名 | NameSilo + Cloudflare | ≈7元/年 |
-| AI 辅助 | Claude + OpenRouter | 免费 |
-| 分析 | Microsoft Clarity | 免费 |
-| 邮件 | Resend | 100封/天免费 |
+| 环节 | 工具 |
+|------|------|
+| 框架 | Next.js |
+| 托管 | GitHub |
+| 部署 | Vercel |
+| 数据库 | Neon / Supabase |
+| 域名 | NameSilo + Cloudflare |
+| AI 辅助 | Claude + OpenRouter |
+| 分析 | Microsoft Clarity |
+| 邮件 | Resend |
 
 ## 我的配置
 

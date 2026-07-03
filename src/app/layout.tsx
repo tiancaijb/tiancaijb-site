@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "tiancaijb — Indie Dev & Tools",
+    default: "tiancaijb — digital garden",
     template: "%s — tiancaijb",
   },
   description:
@@ -34,10 +32,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-[100dvh] flex-col bg-background font-sans text-foreground antialiased">
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="flex min-h-[100dvh] flex-col bg-zinc-50 font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
+        {children}
       </body>
     </html>
   );
