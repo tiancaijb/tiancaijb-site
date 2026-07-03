@@ -51,6 +51,8 @@ Indie dev isn't the easy path — but it's **my path**.
 On costs: [[indie-dev-zero-cost]]
 On building tools: [[why-build-tools]]
 On GTD systems: [[my-gtd-system]]
+On AI-era knowledge management: [[knowledge-management-ai]]
+On timeline system: [[emacs-timeline]]
 On Emacs reminders: [[emacs-reminder-systems]]
 `,
   },
@@ -147,6 +149,93 @@ Two principles:
 2. **Emacs GUI always on** — consistent with my [[my-workflow|WSL + Doom Emacs workflow]], as long as Emacs is running, reminders work.
 
 On habit system design philosophy: [[sobriety-as-habit]]
+On knowledge management: [[knowledge-management-ai]]
+On timeline system: [[emacs-timeline]]
+`,
+  },
+  {
+    slug: "knowledge-management-ai",
+    title: "Knowledge Management in the AI Era",
+    date: "2026-07-04",
+    excerpt: "Don't memorize. Make it retrievable by AI.",
+    tags: ["knowledge management", "AI", "methodology"],
+    content: `
+## Anki's era is over
+
+Anki, spaced repetition, flashcards — these were core to knowledge management before AI.
+
+They're still useful in exactly two scenarios:
+
+1. **Exams** — need precise recall of testable facts
+2. **Language learning** — vocabulary is the basic building block
+
+Everything else? No longer needed.
+
+## AI era principle: retrievable > memorizable
+
+We used to spend hours memorizing facts. Now you should spend that time making your knowledge retrievable by AI.
+
+Two things:
+
+1. **Write it down** — don't trust your brain. Put it in org-roam, notes, Markdown.
+2. **Make it retrievable** — structure it, tag it, link it. AI needs to find that one paragraph you wrote months ago.
+
+This is why I built [[my-workflow|LLM Wiki]]: auto-summarize videos → write to org-roam → query anytime.
+
+## Digital garden follows the same logic
+
+Every note here isn't for "memorizing" — it's for finding when needed.
+
+Bidirectional links aren't for helping you remember. They help AI (and future you) build context.
+`,
+  },
+  {
+    slug: "emacs-timeline",
+    title: "Emacs Timeline System",
+    date: "2026-07-04",
+    excerpt: "Visually track time in Emacs without breaking flow.",
+    tags: ["Emacs", "time management", "tools"],
+    content: `
+## Why a timeline
+
+Pomodoro is too rigid for me. I don't want 25-minute interruptions. I want:
+
+- Mark the time when I start something
+- Auto-record duration when I switch tasks
+- Look back and see where my time went
+
+## The idea
+
+A simple timeline buffer in Emacs:
+
+\`\`\`
+09:00 ───── Start coding
+09:45    ├ Research (15m)
+10:30 ───── Sobriety check-in
+10:35 ───── Writing notes
+12:00 ───── Lunch
+\`\`\`
+
+Each line = a timestamp + event. Indentation shows duration.
+
+## Why Emacs
+
+- No window switching — hit a key in Emacs and you're done
+- Links to [[my-gtd-system|org-agenda]] — auto-timestamp when TODO is done
+- Links to [[emacs-reminder-systems|timer-reminder]] — log when reminder fires
+- Data is plain org text, easily processable
+
+## Usage
+
+\`\`\`elisp
+;; Record a point in time
+M-x timeline/record-at-point
+
+;; View today's timeline
+M-x timeline/show-today
+\`\`\`
+
+The timeline isn't about precision to the second. It's about answering "what did I do today".
 `,
   },
   {

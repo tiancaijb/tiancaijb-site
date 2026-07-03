@@ -51,6 +51,8 @@ export const notes: Note[] = [
 关于成本：[[indie-dev-zero-cost]]
 关于工具观：[[why-build-tools]]
 关于 GTD 系统：[[my-gtd-system]]
+关于 AI 时代知识管理：[[knowledge-management-ai]]
+关于时间轴系统：[[emacs-timeline]]
 `,
   },
   {
@@ -146,6 +148,95 @@ Emacs \`run-with-timer\` 实现的定时打卡提醒：
 2. **Emacs GUI 常驻**——和 [[my-workflow|WSL + Doom Emacs 工作流]] 一致，Emacs 开着，提醒就在。
 
 关于我的习惯系统设计哲学：[[sobriety-as-habit]]
+关于知识管理：[[knowledge-management-ai]]
+关于时间轴：[[emacs-timeline]]
+`,
+  },
+  {
+    slug: "knowledge-management-ai",
+    title: "AI 时代的知识管理",
+    date: "2026-07-04",
+    excerpt: "不需要记忆，让 AI 能检索到就够了。",
+    tags: ["知识管理", "AI", "方法论"],
+    content: `
+## Anki 的时代过去了
+
+Anki、间隔重复、抽认卡——这些工具在 AI 出现之前是知识管理的核心。
+
+它们只有两个场景还有价值：
+
+1. **考试**——需要精确记忆考点
+2. **学语言**——词汇量是最基础的砖块
+
+除此之外呢？不再需要了。
+
+## AI 时代的新原则：可检索 > 可记忆
+
+过去我们花大量时间「把知识记在脑子里」。
+
+现在你应该花时间「把知识写得让 AI 能检索到」。
+
+两件事：
+
+1. **写下来**——不要相信你的大脑。记到 org-roam、笔记、Markdown 里。
+2. **让它可检索**——结构化、加标签、建立链接。AI 要能精确找到你几个月前写的某段话。
+
+这就是我做 [[my-workflow|LLM Wiki]] 的原因：自动总结视频 → 写入 org-roam → 随时查询。
+
+## 数字花园也是这个逻辑
+
+每一篇笔记不是为了「背下来」，而是为了「需要的时候能找到」。
+
+双链的作用不是帮你记忆——是帮 AI（和你未来的自己）建立上下文。
+`,
+  },
+  {
+    slug: "emacs-timeline",
+    title: "Emacs 时间轴系统",
+    date: "2026-07-04",
+    excerpt: "在 Emacs 里直观记录时间，不打断心流。",
+    tags: ["Emacs", "时间管理", "工具"],
+    content: `
+## 为什么做时间轴
+
+番茄钟对我来说太死板了。我不想被 25 分钟打断，我想要：
+
+- 开始做一件事时记下时间
+- 切换任务时自动记录跨度
+- 回头看时能看到一天的时间流向
+
+## 实现思路
+
+在 Emacs 里用一个简单的时间轴 buffer：
+
+\`\`\`
+09:00 ───── 开始写代码
+09:45    ├ 查资料 (15m)
+10:30 ───── 戒色打卡
+10:35 ───── 写笔记
+12:00 ───── 午饭
+\`\`\`
+
+每一条就是一个时间点 + 事件。跨度的通过缩进来表示。
+
+## 为什么要放在 Emacs 里
+
+- 不需要切换窗口——在 Emacs 里按个快捷键就记录了
+- 和 [[my-gtd-system|org-agenda]] 联动——TODO 完成时自动打时间戳
+- 和 [[emacs-reminder-systems|timer-reminder]] 联动——提醒时也记录
+- 数据是纯文本 org 格式，随便处理
+
+## 用法
+
+\`\`\`elisp
+;; 记录一个时间点
+M-x timeline/record-at-point
+
+;; 查看今天的时间轴
+M-x timeline/show-today
+\`\`\`
+
+时间轴不是为了精确到秒——是为了回答「我今天做了什么」。
 `,
   },
   {
