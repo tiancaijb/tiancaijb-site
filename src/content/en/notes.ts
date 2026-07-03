@@ -51,6 +51,7 @@ Indie dev isn't the easy path — but it's **my path**.
 On costs: [[indie-dev-zero-cost]]
 On building tools: [[why-build-tools]]
 On GTD systems: [[my-gtd-system]]
+On Emacs reminders: [[emacs-reminder-systems]]
 `,
   },
   {
@@ -93,6 +94,59 @@ Key rule: **write TODO first, then act**.
 - AI only touches agent-projects, never my personal agenda
 
 See my full workflow: [[my-workflow]]
+On Emacs reminders: [[emacs-reminder-systems]]
+`,
+  },
+  {
+    slug: "emacs-reminder-systems",
+    title: "Emacs Reminder Systems: Sobriety + Timer Reminders",
+    date: "2026-07-04",
+    excerpt: "Self-discipline reminders via Emacs timer, always-on Emacs GUI.",
+    tags: ["Emacs", "self-discipline", "habits", "tools"],
+    content: `
+## Emacs for habit reminders
+
+I keep Emacs GUI (Doom Emacs) running all day. So having Emacs manage reminders is the most natural choice — when it's time, it just pops up.
+
+Two systems:
+
+### ① sobriety-reminder (daily check-in)
+
+Built with Emacs \`run-with-timer\`:
+
+- Scheduled reminder fires \`message\` + \`ding\` at the set time
+- Emacs GUI is always on, so reminders never miss
+- Logs data to org files for tracking
+
+Later ported to an Obsidian plugin: [[sobriety-as-habit]]
+
+### ② Generic timer-reminder (stand-up, etc.)
+
+Same Emacs timer mechanism, broader use:
+
+- **Stand-up reminder** — every 30 minutes, time to move
+- **Meditation reminder** — scheduled practice
+- **Water reminder** — drink up
+- **Any custom interval** — configured in Emacs Lisp, easy to tweak
+
+### Technical implementation
+
+Core code is minimal:
+
+\`\`\`elisp
+;; Daily sobriety check-in at 9 AM
+(run-at-time "09:00" (* 60 60 24) 'my/sobriety-reminder)
+
+;; Stand-up reminder every 30 min
+(run-with-timer (* 30 60) (* 30 60) 'my/stand-up-reminder)
+\`\`\`
+
+Two principles:
+
+1. **Remind, don't enforce** — \`ding\` at the right time, the choice is yours. But that sound keeps nudging you.
+2. **Emacs GUI always on** — consistent with my [[my-workflow|WSL + Doom Emacs workflow]], as long as Emacs is running, reminders work.
+
+On habit system design philosophy: [[sobriety-as-habit]]
 `,
   },
   {
@@ -174,6 +228,7 @@ This is the fundamental premise. Any system that relies on willpower is doomed �
 I used to run a sobriety reminder system in Emacs. Problem: Emacs is only open when coding. Obsidian is open all day. That alone made the port worthwhile.
 
 On why I build my own tools: [[why-build-tools]]
+My Emacs reminder systems: [[emacs-reminder-systems]]
 For my full workflow: [[my-workflow]]
 `,
   },
