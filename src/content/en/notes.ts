@@ -242,56 +242,77 @@ This follows the [[knowledge-management-ai|AI-era knowledge management]] philoso
     content: `
 ## timeline-html.el
 
-A Doom Emacs module I wrote that reads org-clock records and generates a visual HTML timeline.
+Location: \`~/.config/doom/lisp/timeline-html.el\`
+
+Inspired by obsidian-gtd TimelineView. Reads org-clock records, generates an HTML timeline, opens in browser.
+
+## Loading
+
+\`\`\`elisp
+;; config.el
+(condition-case nil (load "/home/wangy/.config/doom/lisp/timeline-html") (error nil))
+(map! :leader
+      :desc "HTML timeline" "t h" #'tlh-show)
+\`\`\`
+
+Key: \`SPC t h\`
 
 ## Data source: org-clock
-
-Whenever I work on something in Emacs, I clock in/out using org-mode:
 
 \`\`\`org
 * TODO Write code [#A]
   CLOCK: [2026-07-04 Sat 09:00]--[2026-07-04 Sat 10:30] => 1:30
 \`\`\`
 
-\`SPC c i\` (org-clock-in) to start, \`SPC c o\` (org-clock-out) to stop. Default Doom Emacs bindings. Emacs tracks duration automatically.
+\`SPC c i\` (org-clock-in) to start, \`SPC c o\` (org-clock-out) to stop.
 
-## One-key HTML timeline
+## Color matching
 
-Run \`M-x tlh-show\` (bound to \`SPC t h\`), it:
+\`\`\`elisp
+(defvar tlh-colors
+  '(("#e74c3c" . "代码")
+    ("#e67e22" . "吃饭")
+    ("#f1c40f" . "听书")
+    ("#2ecc71" . "学习")
+    ("#3498db" . "看番")
+    ("#9b59b6" . "游戏")
+    ("#e84393" . "色情")
+    ("#1abc9c" . "运动")
+    ("#6c5ce7" . "洗漱")
+    ("#00cec9" . "刷")
+    ("#fd79a8" . "开会")
+    ("#0abde3" . "睡眠")
+    ("#48dbfb" . "休息")))
 
-1. Scans all \`~/org/*.org\` files
-2. Extracts today's CLOCK records
-3. Parses heading hierarchy (cleans TODO/DONE, priorities, tags)
-4. Merges adjacent same-task segments
-5. Color-codes by task name keyword matching
-6. Generates a dark-theme HTML timeline (6AM-11PM)
-7. Opens in Windows browser via explorer.exe
+(defun tlh--color (name)
+  (or (car (seq-find (lambda (p) (string-match-p (cdr p) name)) tlh-colors))
+      "#6c5ce7"))
+\`\`\`
 
-### Visual output
+Substring match on task name, defaults to purple.
 
-Dark background, 6AM-11PM time scale on the left, CLOCK blocks positioned proportionally. Each block is color-coded by task type — you can tell at a glance where your time went.
+## Pipeline
 
-### Color rules
+\`\`\`elisp
+;; 1. Scan ~/org/*.org for today's CLOCK lines
+(defun tlh--collect-today ()
+  (dolist (f (directory-files "~/org/" t "\\.org$"))
+    ...))
 
-| Color | Matches |
-|-------|---------|
-| 🔴 Red | Code |
-| 🟠 Orange | Eating |
-| 🟡 Yellow | Audiobooks |
-| 🟢 Green | Learning |
-| 🔵 Blue | Anime |
-| 🟣 Purple | Gaming |
-| 🩷 Pink | Porn |
-| 🩵 Cyan | Sleep, Rest |
+;; 2. Merge adjacent same-task segments
+(defun tlh--merge (records)
+  ...)
 
-## Why this approach
+;; 3. Generate HTML
+(defun tlh--html (segments date-str)
+  ;; 6AM-11PM, 42px/hour, absolute positioning
+  ...)
+\`\`\`
 
-- **No flow interruption** — start/stop clock is two key chords, never leave Emacs
-- **Data is automatic** — time tracking is a byproduct of org-clock, no manual entry
-- **Visualization** — HTML is far more intuitive than org text
-- **Tied to org-agenda** — TODOs and CLOCKs live in the same system
+## Output
 
-The timeline isn't about precision to the second. It's about answering "what did I do today".
+Writes \`~/tlh-YYYY-MM-DD.html\`, then runs \`explorer.exe\` to open in Windows browser.
+Dark theme, 6AM-11PM timeline, CLOCK blocks positioned proportionally.
 `,
   },
   {

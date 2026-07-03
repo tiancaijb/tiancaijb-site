@@ -244,52 +244,77 @@ Bilibili と YouTube の両方をカバー。
     content: `
 ## timeline-html.el
 
-私が書いた Doom Emacs モジュール。org-clock の記録を読み取り、視覚的な HTML タイムラインを生成する。
+パス：\`~/.config/doom/lisp/timeline-html.el\`
+
+obsidian-gtd TimelineView に触発されて実装。org-clock 記録を読み取り、HTML タイムラインを生成してブラウザで開く。
+
+## ロード方法
+
+\`\`\`elisp
+;; config.el
+(condition-case nil (load "/home/wangy/.config/doom/lisp/timeline-html") (error nil))
+(map! :leader
+      :desc "HTML timeline" "t h" #'tlh-show)
+\`\`\`
+
+キーバインド：\`SPC t h\`
 
 ## データソース：org-clock
-
-Emacs で何かをするとき、org-mode の clock 機能で時間を記録する：
 
 \`\`\`org
 * TODO コードを書く [#A]
   CLOCK: [2026-07-04 Sat 09:00]--[2026-07-04 Sat 10:30] => 1:30
 \`\`\`
 
-\`SPC c i\`（org-clock-in）で開始、\`SPC c o\`（org-clock-out）で停止。Doom Emacs デフォルトバインディング。Emacs が自動的に時間を記録する。
+\`SPC c i\`（org-clock-in）開始、\`SPC c o\`（org-clock-out）停止。
 
-## ワンキーで HTML タイムライン
+## 色分け
 
-\`M-x tlh-show\`（\`SPC t h\` にバインド）で：
+\`\`\`elisp
+(defvar tlh-colors
+  '(("#e74c3c" . "代码")
+    ("#e67e22" . "吃饭")
+    ("#f1c40f" . "听书")
+    ("#2ecc71" . "学习")
+    ("#3498db" . "看番")
+    ("#9b59b6" . "游戏")
+    ("#e84393" . "色情")
+    ("#1abc9c" . "运动")
+    ("#6c5ce7" . "洗漱")
+    ("#00cec9" . "刷")
+    ("#fd79a8" . "开会")
+    ("#0abde3" . "睡眠")
+    ("#48dbfb" . "休息")))
 
-1. \`~/org/\` 配下の全 .org ファイルをスキャン
-2. 今日の CLOCK 記録だけ抽出
-3. 見出し階層を解析（TODO/DONE、優先度、タグを除去）
-4. 隣接する同一タスクの時間帯をマージ
-5. タスク名の部分一致で色分け
-6. ダークテーマの HTML タイムライン生成（6AM-11PM）
-7. Windows ブラウザで開く（explorer.exe）
+(defun tlh--color (name)
+  (or (car (seq-find (lambda (p) (string-match-p (cdr p) name)) tlh-colors))
+      "#6c5ce7"))
+\`\`\`
 
-### 色分けルール
+タスク名の部分一致、デフォルトは紫。
 
-| 色 | 一致キーワード |
-|----|--------------|
-| 🔴 赤 | コード |
-| 🟠 橙 | 食事 |
-| 🟡 黄 | 聴書 |
-| 🟢 緑 | 学習 |
-| 🔵 青 | アニメ |
-| 🟣 紫 | ゲーム |
-| 🩷 ピンク | 性的 |
-| 🩵 シアン | 睡眠、休息 |
+## 処理パイプライン
 
-## なぜこの方法か
+\`\`\`elisp
+;; 1. ~/org/*.org をスキャン、今日の CLOCK 行を抽出
+(defun tlh--collect-today ()
+  (dolist (f (directory-files "~/org/" t "\\.org$"))
+    ...))
 
-- **フローを妨げない**——開始/停止は 2 つのキー操作、Emacs から離れない
-- **データは自動**——時間記録は org-clock の副産物、手動入力不要
-- **視覚化**——HTML は org テキストより直感的
-- **org-agenda と連携**——TODO と CLOCK は同じシステム内
+;; 2. 隣接する同一タスクをマージ
+(defun tlh--merge (records)
+  ...)
 
-タイムラインは秒単位の正確さが目的じゃない。「今日何をしたか」に答えるためのものだ。
+;; 3. HTML 生成
+(defun tlh--html (segments date-str)
+  ;; 6AM-11PM, 42px/時間, 絶対配置
+  ...)
+\`\`\`
+
+## 出力
+
+\`~/tlh-YYYY-MM-DD.html\` に書き出し、\`explorer.exe\` で Windows ブラウザを開く。
+ダークテーマ、6AM-11PM タイムライン、CLOCK ブロックは時間比例で配置。
 `,
   },
   {
