@@ -47,7 +47,7 @@ I couldn't do this before — I'd bookmark videos and never open them again. Now
 
 This follows the [[knowledge-management-ai|AI-era knowledge management]] philosophy exactly: don't memorize, make it retrievable.
 
-Inspired by [Karpathy's LLM Wiki concept](https://github.com/karpathy/llm-wiki), transforming the knowledge base from a personal memory tool into an AI-retrievable system.
+Inspired by [Karpathy's LLM Wiki concept](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), transforming the knowledge base from a personal memory tool into an AI-retrievable system.
 
 ___
 

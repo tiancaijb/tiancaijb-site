@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>我的开发工作流 · tiancaijb</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Noto+Sans+SC:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#1a1a2e;
+  --ink-rgb:26,26,46;
+  --paper:#f8f6f3;
+  --paper-rgb:248,246,243;
+  --accent:#0055ff;
+  --accent-rgb:0,85,255;
+  --accent-soft:rgba(0,85,255,0.08);
+  --muted:#888;
+  --font-sans:'Inter','Noto Sans SC',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--paper);color:var(--ink);overflow:hidden;height:100dvh}
+.deck{height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory}
+.slide{min-height:100dvh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding:8vh 8vw;position:relative}
+
+/* theme alternation */
+.slide.light{background:var(--paper);color:var(--ink)}
+.slide.dark{background:var(--ink);color:var(--paper)}
+.slide.hero{background:var(--accent);color:#fff}
+.slide.hero h1{font-weight:200;font-size:clamp(2.5rem,5vw,5rem);letter-spacing:-0.03em;line-height:1.1}
+.slide.hero .sub{font-weight:300;font-size:clamp(1rem,1.5vw,1.5rem);margin-top:1.5rem;opacity:.85}
+
+/* dot-grid pattern for swiss style */
+.slide::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(0,0,0,0.06) 1px,transparent 1px);background-size:24px 24px;opacity:.5}
+.slide.dark::before{background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px)}
+.slide.hero::before{background-image:radial-gradient(circle,rgba(255,255,255,0.08) 1px,transparent 1px)}
+
+h1{font-size:clamp(2rem,3.5vw,3.5rem);font-weight:300;letter-spacing:-0.02em;line-height:1.2;max-width:80%}
+h2{font-size:clamp(1.2rem,1.8vw,1.8rem);font-weight:500;letter-spacing:-0.01em;margin-bottom:2rem}
+.accent-block{display:inline-block;background:var(--accent);color:#fff;padding:.15em .6em;font-weight:500}
+.kicker{font-size:clamp(.7rem,.8vw,.8rem);font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem;opacity:.6}
+.t-cat{font-size:clamp(.65rem,.7vw,.7rem);font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.5rem}
+.lead{font-size:clamp(1rem,1.3vw,1.3rem);font-weight:300;line-height:1.7;max-width:70%;opacity:.85;margin-top:1rem}
+.mono{font-family:var(--font-mono);font-size:clamp(.7rem,.8vw,.8rem);opacity:.6}
+
+/* grid */
+.grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;width:100%}
+.span-3{grid-column:span 3}
+.span-4{grid-column:span 4}
+.span-5{grid-column:span 5}
+.span-6{grid-column:span 6}
+.span-7{grid-column:span 7}
+.span-8{grid-column:span 8}
+.span-12{grid-column:span 12}
+
+/* cards */
+.card-ink{border:1px solid rgba(var(--ink-rgb),.12);border-radius:12px;padding:1.5rem;background:rgba(var(--ink-rgb),.02)}
+.card-accent{border:1px solid var(--accent);border-radius:12px;padding:1.5rem;background:var(--accent-soft)}
+.card-fill{background:var(--ink);color:var(--paper);border-radius:12px;padding:1.5rem}
+.slide.dark .card-ink{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
+.slide.dark .card-fill{background:var(--paper);color:var(--ink)}
+
+.card-ink h3,.card-accent h3,.card-fill h3{font-size:clamp(.85rem,1vw,1rem);font-weight:600;margin-bottom:.5rem}
+.card-ink p,.card-accent p,.card-fill p{font-size:clamp(.7rem,.8vw,.8rem);font-weight:300;line-height:1.6;opacity:.75}
+
+/* timeline */
+.timeline-v{display:flex;flex-direction:column;gap:0;position:relative;padding-left:2rem}
+.timeline-v::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--accent);opacity:.3}
+.tl-node{position:relative;padding:.6rem 0}
+.tl-node::before{content:'';position:absolute;left:-1.65rem;top:1rem;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)}
+.slide.dark .tl-node::before{border-color:var(--ink)}
+.tl-node .title{font-weight:500;font-size:clamp(.8rem,.9vw,.9rem)}
+.tl-node .desc{font-size:clamp(.65rem,.75vw,.75rem);opacity:.6;margin-top:.15rem}
+
+/* kpi */
+.kpi-row{display:flex;gap:2rem;flex-wrap:wrap}
+.kpi-item{flex:1;min-width:120px}
+.kpi-num{font-size:clamp(2rem,3vw,3rem);font-weight:200;letter-spacing:-0.03em;line-height:1}
+.kpi-label{font-size:clamp(.65rem,.75vw,.75rem);opacity:.6;margin-top:.25rem;text-transform:uppercase;letter-spacing:.08em}
+
+/* pipeline */
+.pipeline{display:flex;gap:1rem;flex-wrap:wrap}
+.step{flex:1;min-width:140px;text-align:center;padding:1.5rem 1rem;border-radius:12px;border:1px solid rgba(var(--ink-rgb),.1);position:relative}
+.slide.dark .step{border-color:rgba(255,255,255,.1)}
+.step-nb{font-family:var(--font-mono);font-size:clamp(1.2rem,1.5vw,1.5rem);font-weight:600;color:var(--accent)}
+.step-title{font-size:clamp(.7rem,.8vw,.8rem);font-weight:500;margin-top:.5rem}
+.step-desc{font-size:clamp(.6rem,.7vw,.7rem);opacity:.6;margin-top:.25rem}
+
+/* statement page */
+.statement{font-size:clamp(1.5rem,3vw,3rem);font-weight:200;line-height:1.4;max-width:85%;letter-spacing:-0.02em}
+.statement em{font-style:normal;background:var(--accent);color:#fff;padding:0 .15em}
+
+/* split */
+.split{display:flex;gap:4rem;align-items:center}
+.split-left{flex:1}
+.split-right{flex:1}
+
+/* closing */
+.closing{text-align:center}
+.closing h1{max-width:100%;font-weight:200;font-size:clamp(2rem,4vw,4rem)}
+.closing .links{margin-top:2rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.closing .links a{color:var(--accent);text-decoration:none;font-size:clamp(.8rem,.9vw,.9rem);border:1px solid var(--accent);padding:.5rem 1.5rem;border-radius:6px;transition:all .15s}
+.closing .links a:hover{background:var(--accent);color:#fff}
+
+/* meta */
+.page-nb{position:absolute;bottom:3vh;right:3vw;font-family:var(--font-mono);font-size:clamp(.6rem,.7vw,.7rem);opacity:.3}
+
+/* nav arrows */
+.nav-arrows{position:fixed;bottom:3vh;left:50%;transform:translateX(-50%);display:flex;gap:1rem;z-index:100}
+.nav-arrows button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(var(--ink-rgb),.15);background:var(--paper);cursor:pointer;font-size:1rem;transition:all .15s;font-family:var(--font-sans)}
+.nav-arrows button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.slide.dark~.nav-arrows button{background:var(--ink);border-color:rgba(255,255,255,.15);color:var(--paper)}
+.slide.dark~.nav-arrows button:hover{background:var(--paper);color:var(--ink)}
+
+@media(max-width:768px){
+  .slide{padding:5vh 5vw}
+  h1{max-width:100%;font-size:clamp(1.5rem,5vw,2rem)}
+  .lead{max-width:100%}
+  .split{flex-direction:column;gap:2rem}
+  .grid-12{grid-template-columns:1fr;gap:1rem}
+  .span-3,.span-4,.span-5,.span-6,.span-7,.span-8{grid-column:span 1}
+  .statement{max-width:100%;font-size:clamp(1.2rem,5vw,1.5rem)}
+  .kpi-row{flex-direction:column;gap:1rem}
+  .pipeline{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- S1: Cover -->
+<section class="slide hero">
+  <h1>我的开发工作流</h1>
+  <p class="sub">WSL2 + Emacs + Doom Emacs + org-mode + GTD + pi-coding-agent + DeepSeek V4 Flash + LLM Wiki</p>
+  <div style="margin-top:3rem"><span class="kicker" style="color:rgba(255,255,255,.5)">tiancaijb · 2026</span></div>
+  <span class="page-nb">01/11</span>
+</section>
+
+<!-- S2: The Stack -->
+<section class="slide light">
+  <span class="kicker">当前配置</span>
+  <h1>日常开发环境</h1>
+  <div class="grid-12" style="margin-top:2.5rem">
+    <div class="span-4 card-ink"><h3>🖥 系统</h3><p>WSL2 (Windows Subsystem for Linux)<br>Windows 上跑原生 Linux</p></div>
+    <div class="span-4 card-ink"><h3>✏️ 编辑器</h3><p>Emacs + Doom Emacs<br>Emacs 是平台，Doom 是加速器</p></div>
+    <div class="span-4 card-ink"><h3>📝 笔记系统</h3><p>org-mode + org-roam<br>纯文本，双向链接</p></div>
+    <div class="span-4 card-ink"><h3>📋 任务管理</h3><p>org-agenda + GTD<br>习惯追踪、提醒、TODO</p></div>
+    <div class="span-4 card-ink"><h3>🤖 AI 辅助</h3><p>pi-coding-agent + DeepSeek V4 Flash<br>在 Emacs 内完成，不离开编辑器</p></div>
+    <div class="span-4 card-ink"><h3>📚 知识库</h3><p>LLM Wiki<br>自动总结视频到 org-roam</p></div>
+  </div>
+  <span class="page-nb">02/11</span>
+</section>
+
+<!-- S3: Emacs First -->
+<section class="slide dark">
+  <span class="kicker">工具哲学</span>
+  <div class="split">
+    <div class="split-left">
+      <h1 style="max-width:100%">Emacs 为主<br>Obsidian 为辅</h1>
+    </div>
+    <div class="split-right">
+      <p class="lead" style="max-width:100%">知识库、TODO 管理、日常笔记——全在 Emacs 里。</p>
+      <p class="lead" style="max-width:100%;margin-top:1rem">那为什么做 Obsidian 插件？</p>
+      <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem">
+        <div class="card-accent" style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.04)">
+          <h3 style="color:#fff">独立开发经验</h3>
+          <p style="color:rgba(255,255,255,.6)">TypeScript + 前端生态，真实用户、发布流程、社区运营</p>
+        </div>
+        <div class="card-accent" style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.04)">
+          <h3 style="color:#fff">验证想法</h3>
+          <p style="color:rgba(255,255,255,.6)">有人下载、有人反馈，比自娱自乐更有动力</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="page-nb">03/11</span>
+</section>
+
+<!-- S4: Why Indie Dev -->
+<section class="slide light">
+  <span class="kicker">动机</span>
+  <h1>为什么想从事<span class="accent-block">独立开发</span></h1>
+  <div class="grid-12" style="margin-top:3rem">
+    <div class="span-6 card-accent">
+      <h3>🛠 Ownership</h3>
+      <p>代码、产品、用户——都是我的</p>
+    </div>
+    <div class="span-6 card-accent">
+      <h3>⚡ 小团队效率</h3>
+      <p>一个人能做很多事，不需要开会对齐</p>
+    </div>
+    <div class="span-6 card-accent">
+      <h3>👤 直接面对用户</h3>
+      <p>用户告诉你需求，你决定做什么</p>
+    </div>
+    <div class="span-6 card-accent">
+      <h3>🌍 地理自由</h3>
+      <p>有网络就能工作</p>
+    </div>
+  </div>
+  <span class="page-nb">04/11</span>
+</section>
+
+<!-- S5: LLM Wiki workflow -->
+<section class="slide dark">
+  <span class="kicker" style="color:var(--accent)">核心工作流</span>
+  <h1>LLM Wiki：最重要的知识工作流</h1>
+  <div class="pipeline" style="margin-top:3rem">
+    <div class="step"><div class="step-nb">01</div><div class="step-title">发现视频</div><div class="step-desc">B站 / YouTube</div></div>
+    <div class="step"><div class="step-nb">02</div><div class="step-title">复制链接</div><div class="step-desc">运行 ingest_bv.py</div></div>
+    <div class="step"><div class="step-nb">03</div><div class="step-title">LLM 总结</div><div class="step-desc">DeepSeek 自动处理</div></div>
+    <div class="step"><div class="step-nb">04</div><div class="step-title">写入 org-roam</div><div class="step-desc">带元数据的笔记</div></div>
+    <div class="step"><div class="step-nb">05</div><div class="step-title">永久可查</div><div class="step-desc">AI 可直接检索</div></div>
+  </div>
+  <p class="lead" style="max-width:100%;margin-top:2rem">参考了 Karpathy 的 LLM Wiki 思路，将知识库从个人记忆工具转变为 AI 可检索的系统。</p>
+  <span class="page-nb">05/11</span>
+</section>
+
+<!-- S6: GTD Systems -->
+<section class="slide light">
+  <span class="kicker">任务管理</span>
+  <h1>两套系统，各司其职</h1>
+  <div class="grid-12" style="margin-top:2.5rem">
+    <div class="span-6 card-ink">
+      <h3>① org-agenda（个人）</h3>
+      <p style="margin-top:.5rem">习惯追踪、定时提醒、个人 TODO、笔记整理</p>
+      <div class="mono" style="margin-top:.5rem">~/org/todo.org</div>
+    </div>
+    <div class="span-6 card-ink">
+      <h3>② agent-projects.org（Agent）</h3>
+      <p style="margin-top:.5rem">给 pi-coding-agent 用的项目日志<br>每次对话先读 TODO → 完成标记 → commit</p>
+      <div class="mono" style="margin-top:.5rem">~/org/dev/agent-projects.org</div>
+    </div>
+  </div>
+  <p class="lead" style="max-width:100%;margin-top:1.5rem">前者管「我要做什么」，后者管「正在做什么」。AI 只操作 agent-projects，不动个人 agenda。</p>
+  <span class="page-nb">06/11</span>
+</section>
+
+<!-- S7: Emacs Timeline -->
+<section class="slide dark">
+  <span class="kicker">时间管理</span>
+  <h1>Emacs 时间轴系统</h1>
+  <p class="lead" style="max-width:100%">timeline-html.el — 基于 org-clock 记录，一键生成 HTML 时间轴</p>
+  <div style="margin-top:2rem;display:flex;gap:2rem;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px">
+      <div class="kpi-item"><div class="kpi-num">SPC c i</div><div class="kpi-label">开始计时</div></div>
+    </div>
+    <div style="flex:1;min-width:200px">
+      <div class="kpi-item"><div class="kpi-num">SPC c o</div><div class="kpi-label">停止计时</div></div>
+    </div>
+    <div style="flex:1;min-width:200px">
+      <div class="kpi-item"><div class="kpi-num">SPC t h</div><div class="kpi-label">时间轴</div></div>
+    </div>
+  </div>
+  <span class="page-nb">07/11</span>
+</section>
+
+<!-- S8: Emacs Reminder Systems -->
+<section class="slide light">
+  <span class="kicker">自律系统</span>
+  <h1>Emacs 提醒体系</h1>
+  <div class="grid-12" style="margin-top:2.5rem">
+    <div class="span-4 card-accent"><h3>🛡 戒色打卡</h3><p>每日定时提醒，容差补发，win-notify 通知</p></div>
+    <div class="span-4 card-accent"><h3>🦷 刷牙提醒</h3><p>早 05:30 / 晚 17:00</p></div>
+    <div class="span-4 card-accent"><h3>💧 喝水提醒</h3><p>Huberman 方案，起床后每小时</p></div>
+    <div class="span-4 card-accent"><h3>🏃 超慢跑</h3><p>每天 14:00</p></div>
+    <div class="span-4 card-accent"><h3>😴 睡眠提醒</h3><p>就寝 + 起床 + 日照</p></div>
+    <div class="span-4 card-accent"><h3>⚡ 冲动计时器</h3><p>欲望来了开倒计时</p></div>
+  </div>
+  <p class="lead" style="max-width:100%;margin-top:1.5rem">所有提醒通过 Emacs timer 实现，Emacs GUI 常驻后台，到点就弹。</p>
+  <span class="page-nb">08/11</span>
+</section>
+
+<!-- S9: AI Knowledge Management -->
+<section class="slide dark">
+  <span class="kicker">知识管理</span>
+  <h1>AI 时代的知识管理</h1>
+  <div class="statement" style="margin-top:2rem;font-size:clamp(1.2rem,2vw,2rem)">
+    Anki 的时代过去了。<br>
+    只有两个场景还有价值：<span style="color:var(--accent)">考试</span>和<span style="color:var(--accent)">学语言</span>。
+  </div>
+  <div class="grid-12" style="margin-top:2.5rem">
+    <div class="span-6 card-fill" style="background:var(--accent);color:#fff">
+      <h3 style="color:#fff;font-weight:500">可检索 > 可记忆</h3>
+      <p style="color:rgba(255,255,255,.8)">写下来 → 结构化 → 加标签 → 建链接<br>AI 要能精确找到几个月前的一段话</p>
+    </div>
+    <div class="span-6 card-ink" style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.04)">
+      <h3 style="color:#fff">数字花园也是这个逻辑</h3>
+      <p style="color:rgba(255,255,255,.6)">每篇笔记不是为了背下来，是为了需要的时候能找到。</p>
+    </div>
+  </div>
+  <span class="page-nb">09/11</span>
+</section>
+
+<!-- S10: Build Tools -->
+<section class="slide light">
+  <span class="kicker">工具观</span>
+  <h1>为什么自己造工具</h1>
+  <div class="split" style="margin-top:2.5rem">
+    <div class="split-left">
+      <div class="statement" style="max-width:100%;font-size:clamp(1.2rem,2vw,2rem)">
+        现成的工具快，但永远不完全贴合你的需求。<br>
+        <em style="background:var(--accent);color:#fff;font-style:normal;padding:0 .1em">自己写的慢</em>，但每个细节都服务于你。
+      </div>
+    </div>
+    <div class="split-right">
+      <div class="timeline-v">
+        <div class="tl-node"><div class="title">核心流程</div><div class="desc">自己写——每日打卡、冲动计时、知识管理</div></div>
+        <div class="tl-node"><div class="title">基础设施</div><div class="desc">用现成的——部署、数据库、域名</div></div>
+      </div>
+    </div>
+  </div>
+  <span class="page-nb">10/11</span>
+</section>
+
+<!-- S11: Closing -->
+<section class="slide hero closing">
+  <h1>独立开发不是轻松的路</h1>
+  <h1 style="margin-top:.5rem;font-weight:400">但它是<span style="border-bottom:2px solid rgba(255,255,255,.5)">属于我的路</span></h1>
+  <div class="links">
+    <a href="https://tiancaijb-site.vercel.app" target="_blank">数字花园</a>
+    <a href="https://github.com/tiancaijb" target="_blank">GitHub</a>
+  </div>
+  <span class="page-nb">11/11</span>
+</section>
+
+</div>
+
+<!-- nav arrows -->
+<div class="nav-arrows">
+  <button onclick="scrollSlide(-1)">←</button>
+  <button onclick="scrollSlide(1)">→</button>
+</div>
+
+<script>
+let current=0;
+const slides=document.querySelectorAll('.slide');
+function scrollSlide(dir){
+  const deck=document.getElementById('deck');
+  const children=[...deck.children];
+  current=Math.max(0,Math.min(children.length-1,current+dir));
+  children[current].scrollIntoView({behavior:'smooth'});
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') scrollSlide(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') scrollSlide(-1);
+});
+</script>
+
+</body>
+</html>

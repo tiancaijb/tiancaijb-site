@@ -236,9 +236,10 @@ body::before {
 
 .prose-content hr {
   border: none;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--card-border), transparent);
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
   margin: 2rem 0;
+  opacity: 0.4;
 }
 
 .prose-content table {

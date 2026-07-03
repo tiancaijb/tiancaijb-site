@@ -47,7 +47,7 @@ tags: ["ワークフロー", "indie-dev", "Emacs"]
 
 これは [[knowledge-management-ai|AI 時代の知識管理]]の考え方と完全に一致する：暗記するな、検索可能にせよ。
 
-[Karpathy の LLM Wiki コンセプト](https://github.com/karpathy/llm-wiki) に触発され、知識ベースを個人の記憶ツールから AI が検索可能なシステムへと変革した。
+[Karpathy の LLM Wiki コンセプト](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) に触発され、知識ベースを個人の記憶ツールから AI が検索可能なシステムへと変革した。
 
 ___
 

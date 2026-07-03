@@ -1,10 +1,3 @@
----
-title: "我的开发工作流"
-slug: my-workflow
-date: 2026-07-04
-excerpt: "WSL2 + Emacs + Doom Emacs + org-mode + GTD + pi-coding-agent + DeepSeek V4 Flash + LLM Wiki。"
-tags: ["工作流", "indie-dev", "Emacs"]
----
 
 ## 当前配置
 
@@ -46,7 +39,7 @@ tags: ["工作流", "indie-dev", "Emacs"]
 
 这和 [[knowledge-management-ai|AI 时代知识管理]]的理念完全一致：不靠记忆，靠检索。
 
-参考了 [Karpathy 的 LLM Wiki 思路](https://github.com/karpathy/llm-wiki)，将知识库从个人记忆工具转变为 AI 可检索的系统。
+参考了 [Karpathy 的 LLM Wiki 思路](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)，将知识库从个人记忆工具转变为 AI 可检索的系统。
 
 ___
 
