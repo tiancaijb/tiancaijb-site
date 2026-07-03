@@ -48,11 +48,17 @@ export const notes: Note[] = [
 
 独立开发不是轻松的路，但它是**属于我的路**。
 
+## LLM Wiki：最重要的知识工作流
+
+在所有工具中，[[llm-wiki-workflow|LLM Wiki]] 是我每天用得最多的。它的核心很简单：看到好视频 → 复制链接 → 运行脚本 → LLM 自动总结 → 写入 org-roam → 永久可查。
+
+这件事以前我做不了——收藏了视频就再也没打开过。现在所有知识都在我的知识库里，任何 AI agent 都能直接检索。
+
+这和 [[knowledge-management-ai|AI 时代知识管理]]的理念完全一致：不靠记忆，靠检索。
+
 关于成本：[[indie-dev-zero-cost]]
 关于工具观：[[why-build-tools]]
 关于 GTD 系统：[[my-gtd-system]]
-关于 LLM Wiki 知识库：[[llm-wiki-workflow]]
-关于 AI 时代知识管理：[[knowledge-management-ai]]
 关于时间轴系统：[[emacs-timeline]]
 `,
   },
@@ -63,37 +69,36 @@ export const notes: Note[] = [
     excerpt: "org-agenda 管生活，agent-projects.org 管开发。",
     tags: ["GTD", "工作流", "Emacs", "org-mode"],
     content: `
-## 两套系统，各司其职
+## ## 两套系统，各司其职
 
-我同时维护两套 GTD 系统，分工明确：
+我同时维护两套系统，但不是你想的那种 GTD：
 
 ### ① Emacs org-agenda（个人事务）
 
 文件在 \`~/org/todo.org\`，用 \`org-agenda\` 管理日常：
 
 - **习惯追踪**——戒色打卡、站桩、冥想
-- **定时提醒**——Emacs timer + message/ding，不开桌面也能弹
+- **定时提醒**——Emacs timer + message/ding
 - **个人 TODO**——买东西、缴费、杂事
 - **笔记整理**——org-roam 随手记，定期回顾
 
-这套系统的核心优势：**在 Emacs 里不需要离开键盘**。
+### ② agent-projects.org（agent 任务日志）
 
-### ② agent-projects.org（开发项目）
+文件在 \`~/org/dev/agent-projects.org\`，由 pi-coding-agent 维护。这个文件不是给我自己看的，是**给 agent 用的**：
 
-文件在 \`~/org/dev/agent-projects.org\`，由 pi-coding-agent 维护：
+- 每次对话开始时，agent 先读这个文件，了解当前项目的上下文
+- 每个任务前，agent 先写 **TODO**，执行完再标记 **DONE**
+- 状态：TODO / PROJ / STRT / WAIT / HOLD / IDEA / DONE / KILL
+- 优先级：[#A] [#B] [#C]
+- 每次改动后自动 git commit
 
-- **状态体系**——TODO / PROJ / STRT / WAIT / HOLD / IDEA / DONE / KILL
-- **优先级**——[#A] [#B] [#C]
-- **工作流**——每次对话先读 TODO → 完成标记 → commit 更新
-- **日志**——操作日志记录每次改动
+核心原则：**先写 TODO 再动手**——这是 agent 的工作纪律。
 
-这套系统的核心原则：**先写 TODO 再动手**。
+### 两者区别
 
-### 两者关系
-
-- org-agenda 管「我要做什么」——生活、习惯、长期目标
-- agent-projects 管「正在做什么」——开发项目、功能点、发布计划
-- AI 只操作 agent-projects，不动我的个人 agenda
+- org-agenda 是**我的**——我给自己安排的事
+- agent-projects 是**给 agent 的**——记录当前项目上下文，让 agent 知道该做什么
+- AI 只读写 agent-projects，不碰我的个人 agenda
 
 见我的工作流全貌：[[my-workflow]]
 关于 Emacs 提醒系统：[[emacs-reminder-systems]]

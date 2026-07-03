@@ -48,11 +48,17 @@ export const notes: Note[] = [
 
 独立開発は楽な道ではない——でも **私の道** だ。
 
+## LLM Wiki：最も重要な知識ワークフロー
+
+すべてのツールの中で、[[llm-wiki-workflow|LLM Wiki]] が私が毎日最も使うものだ。コアループはシンプル：良い動画を見つける → リンクをコピー → スクリプト実行 → LLM が自動要約 → org-roam に保存 → 永久に検索可能。
+
+以前はできなかったことだ——動画をブックマークしても二度と開かなかった。今はすべての知識が知識ベースにあり、どんな AI エージェントでも直接検索できる。
+
+これは [[knowledge-management-ai|AI 時代の知識管理]]の考え方と完全に一致する：暗記するな、検索可能にせよ。
+
 コストについて：[[indie-dev-zero-cost]]
 ツール哲学について：[[why-build-tools]]
 GTD システムについて：[[my-gtd-system]]
-AI 時代の知識管理：[[knowledge-management-ai]]
-LLM Wiki 知識ベース：[[llm-wiki-workflow]]
 タイムラインシステム：[[emacs-timeline]]
 Emacs リマインダーについて：[[emacs-reminder-systems]]
 `,
@@ -64,36 +70,35 @@ Emacs リマインダーについて：[[emacs-reminder-systems]]
     excerpt: "org-agenda は生活、agent-projects.org は開発。",
     tags: ["GTD", "ワークフロー", "Emacs", "org-mode"],
     content: `
-## 二つのシステム、それぞれの役割
+## 二つのシステム、違う目的
 
-私は二つの GTD システムを並行運用している：
+二つのシステムを動かしているが、どちらも GTD というわけではない：
 
 ### ① Emacs org-agenda（個人用）
 
 ファイル：\`~/org/todo.org\`、\`org-agenda\` で管理：
 
 - **習慣トラッキング**——禁欲チェックイン、瞑想、站桩
-- **定期リマインダー**——Emacs timer + message/ding、デスクトップ不要
+- **定期リマインダー**——Emacs timer + message/ding
 - **個人 TODO**——買い物、支払い、雑用
 - **クイックノート**——org-roam でキャプチャ、定期レビュー
 
-核心の利点：**Emacs 内でキーボードから離れない**。
+### ② agent-projects.org（agent タスクログ）
 
-### ② agent-projects.org（開発用）
+ファイル：\`~/org/dev/agent-projects.org\`、pi-coding-agent が管理。このファイルは自分のためではなく、**agent のため**：
 
-ファイル：\`~/org/dev/agent-projects.org\`、pi-coding-agent が管理：
+- セッション開始時に agent が読み、プロジェクトのコンテキストを把握
+- 各タスクの前に agent が **TODO** を書き、完了後に **DONE** をマーク
+- 状態：TODO / PROJ / STRT / WAIT / HOLD / IDEA / DONE / KILL
+- 優先度：[#A] [#B] [#C]
+- 変更ごとに自動 git commit
 
-- **状態体系**——TODO / PROJ / STRT / WAIT / HOLD / IDEA / DONE / KILL
-- **優先度**——[#A] [#B] [#C]
-- **ワークフロー**——セッション開始時に TODO を読む → 完了マーク → commit
-- **ログ**——操作ログがすべての変更を記録
+核心のルール：**TODO を先に書いてから手を動かす**——これが agent の仕事の規律。
 
-核心のルール：**TODO を先に書いてから手を動かす**。
+### 違い
 
-### 二つの関係
-
-- org-agenda：**やるべきこと**——生活、習慣、長期目標
-- agent-projects：**作っているもの**——開発プロジェクト、機能、リリース
+- org-agenda は **自分のもの**——自分で計画するタスク
+- agent-projects は **agent のもの**——プロジェクトのコンテキスト、agent が何をすべきか把握するため
 - AI は agent-projects だけを操作し、個人の agenda には触れない
 
 フルワークフロー：[[my-workflow]]

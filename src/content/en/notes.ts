@@ -48,11 +48,17 @@ I don't want to be a cog in a big corp assembly line forever. Indie dev means:
 
 Indie dev isn't the easy path — but it's **my path**.
 
+## LLM Wiki: my most-used knowledge workflow
+
+Of all the tools I use, [[llm-wiki-workflow|LLM Wiki]] is what I reach for most every day. The core loop is simple: find a good video → copy link → run script → LLM auto-summarizes → writes to org-roam → permanently searchable.
+
+I couldn't do this before — I'd bookmark videos and never open them again. Now every piece of knowledge lives in my knowledge base, directly retrievable by any AI agent.
+
+This follows the [[knowledge-management-ai|AI-era knowledge management]] philosophy exactly: don't memorize, make it retrievable.
+
 On costs: [[indie-dev-zero-cost]]
 On building tools: [[why-build-tools]]
 On GTD systems: [[my-gtd-system]]
-On AI-era knowledge management: [[knowledge-management-ai]]
-On LLM Wiki knowledge base: [[llm-wiki-workflow]]
 On timeline system: [[emacs-timeline]]
 On Emacs reminders: [[emacs-reminder-systems]]
 `,
@@ -64,36 +70,35 @@ On Emacs reminders: [[emacs-reminder-systems]]
     excerpt: "org-agenda for life, agent-projects.org for dev.",
     tags: ["GTD", "workflow", "Emacs", "org-mode"],
     content: `
-## Two systems, one purpose
+## Two systems, different purposes
 
-I run two GTD systems in parallel, with clear division:  
+I run two systems, but not both for GTD:
 
 ### ① Emacs org-agenda (personal)
 
 File at \`~/org/todo.org\`, managed via \`org-agenda\`:
 
 - **Habit tracking** — sobriety check-ins, meditation, standing practice
-- **Scheduled reminders** — Emacs timer + message/ding, no desktop needed
+- **Scheduled reminders** — Emacs timer + message/ding
 - **Personal TODOs** — errands, bills, chores
 - **Quick notes** — org-roam for capture, periodic review
 
-Key advantage: **never leave the keyboard in Emacs**.  
+### ② agent-projects.org (agent task log)
 
-### ② agent-projects.org (dev projects)
+File at \`~/org/dev/agent-projects.org\`, maintained by pi-coding-agent. This file isn't for me — it's **for the agent**:
 
-File at \`~/org/dev/agent-projects.org\`, maintained by pi-coding-agent:
+- At session start, the agent reads it to understand project context
+- Before each task, the agent writes **TODO**, marks **DONE** after
+- States: TODO / PROJ / STRT / WAIT / HOLD / IDEA / DONE / KILL
+- Priorities: [#A] [#B] [#C]
+- Auto git commit after every change
 
-- **State system** — TODO / PROJ / STRT / WAIT / HOLD / IDEA / DONE / KILL
-- **Priority** — [#A] [#B] [#C]
-- **Workflow** — read TODO at session start → mark done → commit update
-- **Log** — operation log tracks every change
+Key rule: **write TODO first, then act** — this is the agent's work discipline.
 
-Key rule: **write TODO first, then act**.  
+### The difference
 
-### How they relate
-
-- org-agenda: **what I should do** — life, habits, long-term goals
-- agent-projects: **what I'm building** — dev projects, features, releases
+- org-agenda is **mine** — things I plan for myself
+- agent-projects is **for the agent** — project context, so the agent knows what to do
 - AI only touches agent-projects, never my personal agenda
 
 See my full workflow: [[my-workflow]]
