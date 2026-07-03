@@ -10,14 +10,14 @@ tags: ["工作流", "indie-dev", "Emacs"]
 
 这是我的日常开发环境，每一层都经过反复筛选：
 
-| 层 | 工具 | 原因 |
-|------|------|------|
-| 系统 | **WSL2** (Windows Subsystem for Linux) | 在 Windows 上跑原生 Linux |
-| 编辑器 | **Emacs** + **Doom Emacs** | Emacs 本身是平台，Doom 是加速器 |
-| 笔记系统 | **org-mode** + **org-roam** | 纯文本，双向链接，无可替代 |
-| 任务管理 | **org-agenda** + **GTD** | 习惯追踪、定时提醒、TODO 管理 |
-| AI 辅助 | **pi-coding-agent** + DeepSeek V4 Flash API | 在 Emacs 内完成，不离开编辑器 |
-| 知识库 | **LLM Wiki** | 自动总结 B站/YouTube 视频到 org-roam |
+| 层       | 工具                                        | 原因                                                                                                                                                        |
+|----------|---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 系统     | **WSL2** (Windows Subsystem for Linux)      | 即便是 AI 时代， Windows 也不合适开发。 WSL2 能兼顾工作和娱乐                                                                                               |
+| 编辑器   | **Emacs** + **Doom Emacs**                  | Emacs 强大的 Org Mode 系统是选择它的主要原因， Doom Emacs 则是成熟且好上手的社区配置方案。 AI 时代无需担心 Emacs 的高门槛， 安装 Pi 后全都交给 AI 配置即可  |
+| 笔记系统 | **org-mode** + **org-roam**                 | 纯文本，双向链接，开源， Org Mode 系统的强大                                                                                                                                  |
+| 任务管理 | **org-agenda** + **GTD**                    | 习惯追踪、定时提醒、TODO 管理                                                                                                                               |
+| AI 辅助  | **pi-coding-agent** + DeepSeek V4 Flash API | 在 Emacs 内完成，不离开编辑器； flash 版已足够好用且价格低廉                                                                                                                               |
+| 知识库   | **LLM Wiki**                                | 自动总结 B站/YouTube 视频到 org-roam， 操作方便且 AI 友好                                                                                                                        |
 
 ## Emacs 为主，Obsidian 为辅
 
@@ -30,11 +30,10 @@ tags: ["工作流", "indie-dev", "Emacs"]
 
 ## 为什么想从事独立开发
 
-我不想一辈子做大厂流水线上的螺丝钉。独立开发意味着：
+独立开发意味着：
 
 - **ownership**——代码、产品、用户，都是我的
 - **小团队效率**——一个人可以做很多事情，不需要开会对齐
-- **直接面对用户**——用户告诉你需求，你决定做什么
 - **地理自由**——有网络就能工作
 
 独立开发不是轻松的路，但它是**属于我的路**。
@@ -46,6 +45,10 @@ tags: ["工作流", "indie-dev", "Emacs"]
 这件事以前我做不了——收藏了视频就再也没打开过。现在所有知识都在我的知识库里，任何 AI agent 都能直接检索。
 
 这和 [[knowledge-management-ai|AI 时代知识管理]]的理念完全一致：不靠记忆，靠检索。
+
+参考了 [[https://github.com/karpathy/llm-wiki][Karpathy 的 LLM Wiki 思路]]，将知识库从个人记忆工具转变为 AI 可检索的系统。
+
+___
 
 关于成本：[[indie-dev-zero-cost]]
 关于工具观：[[why-build-tools]]
