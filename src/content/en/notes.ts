@@ -253,7 +253,7 @@ Whenever I work on something in Emacs, I clock in/out using org-mode:
   CLOCK: [2026-07-04 Sat 09:00]--[2026-07-04 Sat 10:30] => 1:30
 \`\`\`
 
-\`C-c C-x C-i\` to start, \`C-c C-x C-o\` to stop. Emacs tracks duration automatically.
+\`SPC c i\` (org-clock-in) to start, \`SPC c o\` (org-clock-out) to stop. Default Doom Emacs bindings. Emacs tracks duration automatically.
 
 ## One-key HTML timeline
 
