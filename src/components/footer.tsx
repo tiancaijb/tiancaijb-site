@@ -1,0 +1,21 @@
+export function Footer() {
+  return (
+    <footer className="border-t border-zinc-200/60 dark:border-zinc-800/60">
+      <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-8">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          © {new Date().getFullYear()} tiancaijb
+        </p>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://github.com/tiancaijb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-zinc-500 transition-colors hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+          >
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
