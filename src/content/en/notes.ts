@@ -226,8 +226,6 @@ There's also \`ingest_article.py\` for text articles.
 - **AI-retrievable** — all content is structured, tagged, and linked. AI agents can query directly.
 
 This follows the [[knowledge-management-ai|AI-era knowledge management]] philosophy exactly: don't memorize, make it retrievable.
-
-Full tech stack: [[my-workflow]]
 `,
   },
   {
