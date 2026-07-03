@@ -10,6 +10,92 @@ export interface Note {
 
 export const notes: Note[] = [
   {
+    slug: "my-workflow",
+    title: "我的开发工作流",
+    date: "2026-07-04",
+    excerpt: "WSL2 + Doom Emacs + pi-coding-agent + DeepSeek V4 Flash + org-roam。",
+    tags: ["工作流", "indie-dev", "Emacs"],
+    content: `
+## 当前配置
+
+这是我的日常开发环境，每一层都经过反复筛选：
+
+| 层 | 工具 | 原因 |
+|------|------|------|
+| 系统 | **WSL2** (Windows) | 原生 Linux 体验，无需双系统 |
+| 编辑器 | **Doom Emacs** | 27 年积累的生态，org-mode 无可替代 |
+| AI 辅助 | **pi-coding-agent** + DeepSeek V4 Flash API | 在 Emacs 内完成，不离开编辑器 |
+| 笔记 | **org-roam** | 双链笔记鼻祖，纯文本 |
+| 知识库 | **LLM Wiki skill** | 自动总结 B站/YouTube 视频到 org-roam |
+
+## Emacs 为主，Obsidian 为辅
+
+我目前主力编辑器仍然是 **Emacs**。org-roam 里的知识库、TODO 管理、日常笔记都在 Emacs 里。
+
+那为什么做 Obsidian 插件？两个原因：
+
+1. **获取独立开发经验**——Obsidian 插件开发是 TypeScript + 前端生态，能接触到真实用户、发布流程、社区运营。这些经验在纯 Emacs 生态里得不到。
+2. **验证想法**——Obsidian 的用户群大，一个插件有人下载、有人反馈，比在 Emacs 里自娱自乐更有动力。
+
+## 为什么想从事独立开发
+
+我不想一辈子做大厂流水线上的螺丝钉。独立开发意味着：
+
+- **ownership**——代码、产品、用户，都是我的
+- **小团队效率**——一个人可以做很多事情，不需要开会对齐
+- **直接面对用户**——用户告诉你需求，你决定做什么
+- **地理自由**——有网络就能工作
+
+独立开发不是轻松的路，但它是**属于我的路**。
+
+关于成本：[[indie-dev-zero-cost]]
+关于工具观：[[why-build-tools]]
+关于 GTD 系统：[[my-gtd-system]]
+`,
+  },
+  {
+    slug: "my-gtd-system",
+    title: "我的两套 GTD 系统",
+    date: "2026-07-04",
+    excerpt: "org-agenda 管生活，agent-projects.org 管开发。",
+    tags: ["GTD", "工作流", "Emacs", "org-mode"],
+    content: `
+## 两套系统，各司其职
+
+我同时维护两套 GTD 系统，分工明确：
+
+### ① Emacs org-agenda（个人事务）
+
+文件在 \`~/org/todo.org\`，用 \`org-agenda\` 管理日常：
+
+- **习惯追踪**——戒色打卡、站桩、冥想
+- **定时提醒**——Emacs timer + message/ding，不开桌面也能弹
+- **个人 TODO**——买东西、缴费、杂事
+- **笔记整理**——org-roam 随手记，定期回顾
+
+这套系统的核心优势：**在 Emacs 里不需要离开键盘**。
+
+### ② agent-projects.org（开发项目）
+
+文件在 \`~/org/dev/agent-projects.org\`，由 pi-coding-agent 维护：
+
+- **状态体系**——TODO / PROJ / STRT / WAIT / HOLD / IDEA / DONE / KILL
+- **优先级**——[#A] [#B] [#C]
+- **工作流**——每次对话先读 TODO → 完成标记 → commit 更新
+- **日志**——操作日志记录每次改动
+
+这套系统的核心原则：**先写 TODO 再动手**。
+
+### 两者关系
+
+- org-agenda 管「我要做什么」——生活、习惯、长期目标
+- agent-projects 管「正在做什么」——开发项目、功能点、发布计划
+- AI 只操作 agent-projects，不动我的个人 agenda
+
+见我的工作流全貌：[[my-workflow]]
+`,
+  },
+  {
     slug: "why-build-tools",
     title: "为什么要自己造工具",
     date: "2026-07-01",
@@ -33,7 +119,7 @@ export const notes: Note[] = [
 
 所以我倾向于自己造工具——不是为了酷，而是为了在工具中保留我自己的思考方式。
 
-参见：[[indie-dev-zero-cost]]
+参见：[[my-workflow]] 和 [[indie-dev-zero-cost]]
 `,
   },
   {
