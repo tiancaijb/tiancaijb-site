@@ -21,13 +21,17 @@ export function Nav({ lang }: NavProps) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/60 bg-zinc-50/80 backdrop-blur-md dark:border-zinc-800/60 dark:bg-zinc-950/80">
+    <header className="sticky top-0 z-50 w-full" style={{ background: "var(--nav-bg)", backdropFilter: "blur(12px", borderBottom: "1px solid var(--card-border)" }}>
       <nav className="mx-auto flex h-14 max-w-4xl items-center justify-between px-6">
         <Link
           href={`/${lang}`}
-          className="text-sm font-semibold tracking-tight"
+          className="flex items-center gap-2 text-sm font-semibold tracking-tight"
+          style={{ color: "var(--fg)" }}
         >
-          🌱 tiancaijb
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "var(--accent)", color: "white", fontSize: "0.875rem", lineHeight: 1 }}>
+            T
+          </span>
+          tiancaijb
         </Link>
         <div className="flex items-center gap-5">
           {links.map((link) => {
@@ -41,15 +45,17 @@ export function Nav({ lang }: NavProps) {
                 href={link.href}
                 className={`text-sm transition-colors ${
                   isActive
-                    ? "font-medium text-zinc-900 dark:text-zinc-100"
-                    : "text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+                    ? "font-medium"
+                    : ""
                 }`}
+                style={{
+                  color: isActive ? "var(--fg)" : "var(--muted)",
+                }}
               >
                 {link.label}
               </Link>
             );
           })}
-          {/* Language switcher */}
           <LangSwitcher currentLang={lang} pathname={pathname} />
         </div>
       </nav>
@@ -71,14 +77,17 @@ function LangSwitcher({
   };
 
   const next = alt[currentLang];
-
-  // Switch lang in pathname
   const switchPath = pathname.replace(/^\/(en|zh|ja)/, `/${next.lang}`);
 
   return (
     <Link
       href={switchPath}
-      className="ml-2 rounded-md border border-zinc-200 px-2 py-0.5 text-[11px] font-medium text-zinc-400 transition-colors hover:border-zinc-300 hover:text-zinc-600 dark:border-zinc-700 dark:text-zinc-500 dark:hover:border-zinc-600 dark:hover:text-zinc-300"
+      className="rounded-lg px-2.5 py-1 text-[11px] font-medium transition-all"
+      style={{
+        color: "var(--accent)",
+        border: "1px solid var(--accent-soft)",
+      }}
+      suppressHydrationWarning
     >
       {next.label}
     </Link>

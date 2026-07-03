@@ -96,6 +96,7 @@ export const notes: Note[] = [
 
 见我的工作流全貌：[[my-workflow]]
 关于 Emacs 提醒系统：[[emacs-reminder-systems]]
+我还把 GTD 工作流移植到了 [GTD Workflow 插件](https://github.com/tiancaijb/obsidian-gtd)。
 `,
   },
   {
@@ -125,7 +126,6 @@ Emacs \`run-with-timer\` 实现的定时打卡提醒：
 
 也是 Emacs timer 机制，用途更广：
 
-- **久坐提醒**——每 30 分钟提示站起来活动
 - **站桩提醒**——到点提醒去站桩
 - **喝水提醒**——定时通知喝水
 - **任意自定义间隔**——用 Emacs Lisp 配置，改起来极快
@@ -138,8 +138,8 @@ Emacs \`run-with-timer\` 实现的定时打卡提醒：
 ;; 戒色每日打卡提醒
 (run-at-time "09:00" (* 60 60 24) 'my/sobriety-reminder)
 
-;; 站立提醒（每 30 分钟）
-(run-with-timer (* 30 60) (* 30 60) 'my/stand-up-reminder)
+;; 站桩提醒（每天固定时间）
+(run-at-time "07:00" (* 60 60 24) 'my/zhanzhuang-reminder)
 \`\`\`
 
 两条原则：

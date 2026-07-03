@@ -122,11 +122,10 @@ Emacs の \`run-with-timer\` で実装：
 
 後に Obsidian プラグインに移植：[[sobriety-as-habit]]
 
-### ② 汎用 timer-reminder（立ち上がり通知など）
+### ② 汎用 timer-reminder（站桩、水分補給など）
 
 同じ Emacs timer 機構、より広い用途：
 
-- **立ち上がり通知** — 30分ごとに「動け」
 - **站桩リマインダー** — 決まった時間に立禅
 - **水分補給通知** — 水を飲め
 - **任意のカスタム間隔** — Emacs Lisp で設定、変更も一瞬
@@ -139,8 +138,8 @@ Emacs の \`run-with-timer\` で実装：
 ;; 毎日 9 時に禁欲チェックイン
 (run-at-time "09:00" (* 60 60 24) 'my/sobriety-reminder)
 
-;; 30分ごとに立ち上がり通知
-(run-with-timer (* 30 60) (* 30 60) 'my/stand-up-reminder)
+;; 站桩リマインダー（毎日7時）
+(run-at-time "07:00" (* 60 60 24) 'my/zhanzhuang-reminder)
 \`\`\`
 
 二つの原則：

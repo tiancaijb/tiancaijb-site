@@ -122,11 +122,10 @@ Built with Emacs \`run-with-timer\`:
 
 Later ported to an Obsidian plugin: [[sobriety-as-habit]]
 
-### ② Generic timer-reminder (stand-up, etc.)
+### ② Generic timer-reminder (zhanzhuang, water, etc.)
 
 Same Emacs timer mechanism, broader use:
 
-- **Stand-up reminder** — every 30 minutes, time to move
 - **Meditation reminder** — scheduled practice
 - **Water reminder** — drink up
 - **Any custom interval** — configured in Emacs Lisp, easy to tweak
@@ -139,8 +138,8 @@ Core code is minimal:
 ;; Daily sobriety check-in at 9 AM
 (run-at-time "09:00" (* 60 60 24) 'my/sobriety-reminder)
 
-;; Stand-up reminder every 30 min
-(run-with-timer (* 30 60) (* 30 60) 'my/stand-up-reminder)
+;; Zhanzhuang (standing meditation) reminder
+(run-at-time "07:00" (* 60 60 24) 'my/zhanzhuang-reminder)
 \`\`\`
 
 Two principles:

@@ -30,33 +30,33 @@ export default async function NotesPage({ params }: Props) {
   const notes = await getNotes(validLang);
 
   return (
-    <div className="mx-auto max-w-3xl px-6 pt-16 pb-24">
-      <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-        📝 {dict.notes.title}
-      </h1>
-      <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-        {dict.notes.description}
-      </p>
+    <div className="mx-auto max-w-4xl px-6 pt-16 pb-24">
+      <div className="fade-in">
+        <span className="tag-pill mb-4 inline-block">📝</span>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          {dict.notes.title}
+        </h1>
+        <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>
+          {dict.notes.description}
+        </p>
+      </div>
 
-      <div className="mt-10 space-y-4">
-        {notes.map((note: any) => (
+      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        {notes.map((note: any, i: number) => (
           <Link
             key={note.slug}
             href={`/${validLang}/notes/${note.slug}`}
-            className="group block rounded-xl border border-zinc-200/60 p-5 transition-colors hover:border-emerald-300/60 dark:border-zinc-800/60 dark:hover:border-emerald-700/60"
+            className={`garden-card p-5 fade-in-${Math.min(i + 1, 4)}`}
           >
-            <h2 className="text-base font-semibold tracking-tight group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
+            <h2 className="text-base font-semibold tracking-tight" style={{ color: "var(--fg)" }}>
               {note.title}
             </h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+            <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
               {note.excerpt}
             </p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {note.tags?.map((tag: string) => (
-                <span
-                  key={tag}
-                  className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
-                >
+                <span key={tag} className="tag-pill">
                   {tag}
                 </span>
               ))}
